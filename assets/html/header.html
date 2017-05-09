@@ -1,0 +1,147 @@
+ <!-- ===============================================
+                ================= HEADER Content ===================
+                ================================================ -->
+                <!-- BEGIN HEADER -->
+                <div class="page-header navbar navbar-fixed-top">
+                    <!-- BEGIN HEADER INNER -->
+                    <div class="page-header-inner ">
+                        <!-- BEGIN LOGO -->
+                        <div class="page-logo">
+                            <a href="index.html">
+                                <img src="assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
+                            <div class="menu-toggler sidebar-toggler">
+                                <span></span>
+                            </div>
+                        </div>
+                        <!-- END LOGO -->
+                        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span></span>
+                        </a>
+                        <!-- END RESPONSIVE MENU TOGGLER -->
+                        <!-- BEGIN TOP NAVIGATION MENU -->
+                        <div class="top-menu">
+                            
+                        </div>
+                        <!-- END TOP NAVIGATION MENU -->
+                    </div>
+                    <!-- END HEADER INNER -->
+                </div>
+                <!-- END HEADER -->
+                <!-- BEGIN HEADER & CONTENT DIVIDER -->
+                <div class="clearfix"> </div>
+                <!-- END HEADER & CONTENT DIVIDER -->
+
+<script>
+    
+    
+     
+     
+     
+     $(window).load(function(){
+                //Get Data from Ignition
+
+                //Initial Load
+                //getIgnitionDataH('header');
+
+                //Get Ignition Data
+                function getIgnitionDataH(funcNameH)
+                {
+                    $.ajax({
+                        //url: '/main/system/webdev/Mobile_POC/' + funcName,
+                        //url: 'http://cw6218alge.amer.consind.ge.com:8088/main/system/webdev/Mobile_POC/' + funcName,
+                        url: IgnitionURL + funcNameH,
+                        //url: IgnitionGateway + IgnitionProject + funcName,
+                        //data: myData,
+                        type: 'GET',
+                        dataType: 'jsonp',
+                        data: {},
+                        processData: true,
+                        jsonpCallback: 'returnData',
+                        success: function (data) {
+                            if (funcNameH == "header") {
+                            
+                                process_getHeaderData(data);
+                            }
+                        },
+                        error: function (xhr, status) {
+                            if (status == "timeout") {
+                                alert('A timeout occured while fetching data.');
+                            }
+                            else {
+                                console.log(' Fetch Data Failed: ' + status);
+                            }
+
+                        },
+                    });
+
+                }
+                
+                
+
+                //Data Processing
+                function process_getHeaderData(data) {
+                    //Do some stuff with the data
+                    //console.log(data);
+                    console.log('Ignition data retrieved.');
+                    
+                    var count = 0
+                    for (var key in data) {
+                        
+                        if (data.hasOwnProperty(key)) {
+                            //green = bg-primary
+                            //blue = bg-primary
+                            //red = bg-warning
+                            
+                           active = data[key].Active;
+                           
+                           if (active == 1) {
+                                count = count + 1
+                                
+                        
+                             name = data[key].Name;
+                            icon = data[key].Icon;
+                              date = data[key].Date;
+                               color = data[key].Color;
+                               $("#notificationList ul").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
+                                $("#notificationList").append('<li class="list-group-item"><a role="button" tabindex="0" class="media"><span class="pull-left media-object media-icon ' + color + '"><i class="' + icon +'"></i></span><div class="media-body"><span class="block">' + name + '</span><small class="text-muted">' + date + '</small></div></a></li>');
+                            }
+                            
+                        }
+                    }
+                    
+                    $("#notificationBadge").html(String(count));
+                    if (data.length == 1) {
+                         $("#panelHeading").html("There is <strong>" + String(count) + "</strong> new notification");
+                    }
+                    else {
+                         $("#panelHeading").html("There are <strong>" + String(count) + "</strong> new notifications");
+                   }
+                    
+                   
+                }
+                
+                
+               
+                function process_getSettingsH(data) {
+                    var RefreshRate = 60000;
+                    console.log('New Rate: ' + RefreshRate);
+
+                    // Refresh at Interval
+                    setInterval(function () {
+                       getIgnitionDataH('header');
+                    }, RefreshRate);
+                    
+                    //After getting settings, run the main data function
+                    //getIgnitionData('PlantEfficiency/home');
+                }
+                
+                
+
+               
+
+            });
+
+</script>
+
+
