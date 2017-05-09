@@ -12,8 +12,8 @@
                             </li>
                            
 
-                            <li class="nav-item start active open">
-                                <a href="javascript:;" class="nav-link nav-toggle">
+                            <li id="homeDashboard" class="nav-item start open">
+                                <a id="HomeDashboard_URL" href="" class="nav-link nav-toggle">
                                     <i class="icon-home"></i>
                                     <span class="title">Home</span>
                                     <span class="selected"></span>
@@ -95,7 +95,7 @@
                                 </ul>
                             
                            
-                            <li class="nav-item  ">
+                            <li id="RecMgmt" class="nav-item  ">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-list"></i>
                                     <span class="title">Recipe Management</span>
@@ -107,8 +107,8 @@
                                             <i class="icon-magnifier"></i> Part Number Lookup</a>
                                         </a>
                                     </li>
-                                     <li class="nav-item  ">
-                                        <a href="#" class="nav-link">
+                                     <li  id="REC_RecipeReport" class="nav-item  ">
+                                        <a  id="REC_Report_URL" href="#" class="nav-link">
                                             <i class="icon-magnifier"></i> Recipe Report</a>
                                         </a>
                                     </li>
@@ -134,11 +134,12 @@
      </script> 
 
 <script>
-      //  var currentPage = localStorage.getItem("currentPage");
- //       $("#" + currentPage).addClass("active");
+        var currentPage = localStorage.getItem("currentPage");
+        console.log(currentPage);
+        $("#" + currentPage).addClass("active");
         
         //if we are not within a folder, these are the URLs
- //        $("#HomeDashboard_URL").attr("href", "index.html");
+         $("#HomeDashboard_URL").attr("href", "index.html");
          
 //         var folder = 'WV_Spools/';
  //        $("#WV_Spools_spoolLookup_URL").attr("href", folder + "lookup.html");
@@ -147,9 +148,22 @@
 //         $("#WV_Spools_SOSummaryReport_URL").attr("href", folder + "SOSummaryReport.html");
 //         $("#WV_Spools_SOTestReport_URL").attr("href", folder + "SOTestReport.html");
 
-       
+        var folder = 'RecMgmt/';
+                 $("#REC_Report_URL").attr("href", folder + "RecipeReport.html");
+         //        $("#WV_Spools_spoolReport_URL").attr("href", folder + "SpoolReport.html");
+        //         $("#WV_Spools_spoolSummaryReport_URL").attr("href", folder + "spoolSummaryReport.html");
+        //         $("#WV_Spools_SOSummaryReport_URL").attr("href", folder + "SOSummaryReport.html");
+        //         $("#WV_Spools_SOTestReport_URL").attr("href", folder + "SOTestReport.html");
+
+        
         
         //if we are within a folder, the URLs are different.
+         if (currentPage.indexOf("REC") >= 0) {
+
+            $("#RecMgmt").addClass("active");
+           $("#HomeDashboard_URL").attr("href", "../index.html");
+           $("#REC_Report_URL").attr("href", "RecipeReport.html");
+        }
 //        if (currentPage.indexOf("WV_Spools") >= 0) {
  //           $("#WV_Spools").addClass("active");
  //           $("#HomeDashboard_URL").attr("href", "../index.html");
