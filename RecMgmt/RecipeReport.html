@@ -172,7 +172,7 @@
                                         <div class="mt-element-list">
                                             <div class="mt-list-container list-simple ext-1 group">
                                                 <a class="list-toggle-container" data-toggle="collapse" href="#process1-simple" aria-expanded="true">
-                                                    <div class="list-toggle uppercase">
+                                                    <div class="list-toggle">
 													<i class="fa fa-cog font-white"></i>
 													Sample Process Name 1
 													</div>
@@ -201,43 +201,98 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+												
                                                 <a class="list-toggle-container" data-toggle="collapse" href="#process2-simple" aria-expanded="true">
-                                                    <div class="list-toggle uppercase">
-													<i class="fa fa-cog font-white"></i>
-													Sample Process Name 2
+                                                    <div class="list-toggle">
+														<i class="fa fa-cog font-white"></i>
+														Sample Process Name 2
 													</div>
                                                 </a>
                                                 <div class="panel-collapse collapse in" id="process2-simple">
                                                     <ul>
                                                         <li class="mt-list-item">
-                                                            <div class="list-icon-container">
-                                                                <i class="fa fa-cogs"></i>
-                                                            </div>
-                                                            <div class="list-item-content">
-                                                                <h3 class="uppercase">
-                                                                Sample Process 2 Category 1
-                                                                </h3>
-                                                            </div>
+                                                            <a class="list-toggle-container" data-toggle="collapse" href="#process2cat1-simple" aria-expanded="false">
+																	<div class="list-toggle">
+																		<i class="fa fa-cog"></i>
+																		Sample Process 2 Category 1
+																	</div>
+															</a>
+																	<div class="panel-collapse collapse in" id="process2cat1-simple">
+																		<ul>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 1 and Value
+																					</h3>
+																				</div>
+																			</li>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 2 and Value
+																					</h3>
+																				</div>
+																			</li>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 3 and Value
+																					</h3>
+																				</div>
+																			</li>
+																		</ul>
+																	</div>
                                                         </li>
                                                         <li class="mt-list-item">
-                                                            <div class="list-icon-container">
-                                                                <i class="fa fa-cogs"></i>
-                                                            </div>
-                                                            <div class="list-item-content">
-                                                                <h3 class="uppercase">
-                                                                Sample Process 2 Category 2
-                                                                </h3>
-                                                            </div>
-                                                        </li>
-                                                        <li class="mt-list-item">
-                                                            <div class="list-icon-container">
-                                                                <i class="fa fa-cogs"></i>
-                                                            </div>
-                                                            <div class="list-item-content">
-                                                                <h3 class="uppercase">
-                                                                Sample Process 2 Category 3
-                                                                </h3>
-                                                            </div>
+                                                            <a class="list-toggle-container" data-toggle="collapse" href="#process2cat2-simple" aria-expanded="false">
+																	<div class="list-toggle">
+																		<i class="fa fa-cog"></i>
+																		Sample Process 2 Category 2
+																	</div>
+															</a>
+																	<div class="panel-collapse collapse in" id="process2cat2-simple">
+																		<ul>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 1 and Value
+																					</h3>
+																				</div>
+																			</li>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 2 and Value
+																					</h3>
+																				</div>
+																			</li>
+																			<li class="mt-list-item">
+																				<div class="list-icon-container">
+																					<i class="fa fa-cogs"></i>
+																				</div>
+																				<div class="list-item-content">
+																					<h3 class="uppercase">
+																						Sample Characteristic 3 and Value
+																					</h3>
+																				</div>
+																			</li>
+																		</ul>
+																	</div>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -312,7 +367,8 @@
         
        <!--Hidden div container for printing this page -->
        <div id="printDiv" style="visibility: hidden">
-        <h1>Recipe Values</h1>
+	    <h1>Recipe Report</h1>
+        <h2>Recipe Values</h2>
             <table id="printRecipeValues">
                 <thead>
                     <tr class="">
@@ -465,12 +521,9 @@
                         for (var key in data) {
                             if (data.hasOwnProperty(key)) {
                             
-                           
-   
-                                   $('#recipeFieldsTbl').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
-                                  $('#printRecipeValues').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
-
-                              
+                                $('#recipeFieldsTbl').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
+                                $('#printRecipeValues').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
+								
                            }
                        }
                        initRecipeFields();
