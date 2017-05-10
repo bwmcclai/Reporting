@@ -298,6 +298,7 @@ License: You must have a valid license purchased only from themeforest(the above
             $(document).ready(function()
             {
                    getIgnitionData('Reporting/RecMgmt/getRecipeFields');
+                  
 
                     //Get Ignition Data
                     function getIgnitionData(funcName)
@@ -312,6 +313,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             jsonpCallback: 'returnData',
                             success: function (data) {
                     
+                                
                                 process_getData(data);
                             },
                             error: function (xhr, status) {
@@ -340,6 +342,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         for (var key in data) {
                             if (data.hasOwnProperty(key)) {
+                            
+                           
    
                                    $('#recipeFieldsTbl').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
                                   $('#printRecipeValues').append('<tr><td>' + data[key].ProcessName + '</td><td>' + data[key].CategoryName + '</td><td>' + data[key].RecipeFieldName + '</td><td>' + data[key].RecipeFieldValue + '</td></tr>');
@@ -354,7 +358,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         //$('#materialResults').trigger('footable_initialize');
                         
 
-                       
                     }
       
                 
