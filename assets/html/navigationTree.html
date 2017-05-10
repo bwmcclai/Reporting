@@ -49,8 +49,8 @@
                                             <span class="title">Spool Lookup</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href="ui_colors.html" class="nav-link ">
+                                    <li id="TNT_WV_spoolReport" class="nav-item  ">
+                                        <a id="TNT_WV_spoolReport_URL" href="ui_colors.html" class="nav-link ">
                                             <span class="title">Extruder Dielectric Report</span>
                                         </a>
                                     </li>
@@ -59,13 +59,13 @@
                                             <span class="title">Spool Summary Report</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href="ui_buttons.html" class="nav-link ">
+                                    <li id="TNT_WV_spoolSummary_URL" class="nav-item  ">
+                                        <a id="TNT_WV_spoolSummary_URL" href="" class="nav-link ">
                                             <span class="title">Shop Order Summary Report</span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">
-                                        <a href="ui_buttons_spinner.html" class="nav-link ">
+                                        <a href="" class="nav-link ">
                                             <span class="title">Shop Order Test Report</span>
                                         </a>
                                     </li>
@@ -140,6 +140,8 @@
         
         //if we are not within a folder, these are the URLs
          $("#HomeDashboard_URL").attr("href", "index.html");
+         $("#REC_Report_URL").attr("href", "RecMgmt/RecipeReport.html");
+         $("#TNT_WV_spoolReport_URL").attr("href", "TNT/WV_SpoolReport.html");
          
          var folder = 'TNT/';
             $("#TNT_WV_lookup_URL").attr("href", folder + "WV_Lookup.html");
@@ -147,23 +149,29 @@
 
         var folder = 'RecMgmt/';
             $("#REC_Report_URL").attr("href", folder + "RecipeReport.html");
+            
         
         
         //if we are within a folder, the URLs are different.
          if (currentPage.indexOf("REC") >= 0) {
             $("#RecMgmt").addClass("active");
             $("#HomeDashboard_URL").attr("href", "../index.html");
+            
             $("#REC_Report_URL").attr("href", "RecipeReport.html");
+            
+            $("#TNT_WV_lookup_URL").attr("href", "../TNT/WV_Lookup.html");
+            $("#TNT_WV_spoolReport_URL").attr("href", "../TNT/WV_SpoolReport.html");
+            
+    
         }
         if (currentPage.indexOf("TNT") >= 0) {
             $("#TNT").addClass("active");
             $("#HomeDashboard_URL").attr("href", "../index.html");
             
+            $("#REC_Report_URL").attr("href", "../RecMgmt/RecipeReport.html");
+            
             $("#TNT_WV_lookup_URL").attr("href", "WV_Lookup.html");
-//            $("#WV_Spools_spoolReport_URL").attr("href", "SpoolReport.html");
-//            $("#WV_Spools_spoolSummaryReport_URL").attr("href", "spoolSummaryReport.html");
-//            $("#WV_Spools_SOSummaryReport_URL").attr("href", "SOSummaryReport.html");
- //           $("#WV_Spools_SOTestReport_URL").attr("href", "SOTestReport.html");
+            $("#TNT_WV_spoolReport_URL").attr("href", "WV_SpoolReport.html");
 
             
 
