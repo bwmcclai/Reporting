@@ -46,7 +46,7 @@
            $(document).ready(function(){
                 $("#header").load("../assets/html/header.html"); 
                 
-               localStorage.setItem("currentPage", "TNT_WV_lookup");
+               localStorage.setItem("currentPage", "REC_lookup");
                 $("#navigation").load("../assets/html/navigationTree.html"); 
            });
         </script> 
@@ -101,8 +101,8 @@
                         </div>
                         <!-- END PAGE BAR -->
                         <!-- BEGIN PAGE TITLE-->
-                        <h1 class="page-title bold"> Track & Trace
-                            <small>Spool Lookup</small>
+                        <h1 class="page-title bold"> Recipe Management
+                            <small>Part Number Lookup</small>
                         </h1>
                         <div class="row">
           
@@ -117,16 +117,29 @@
                                     <div class="portlet-title">
                                         <div class="caption font-dark">
                                             <i class="icon-magnifier font-dark"></i>
-                                            <span class="caption-subject bold uppercase">Spool Lookup</span>
+                                            <span class="caption-subject bold uppercase">Part Number Lookup</span>
                                         </div>
-                                        <!-- <div class="actions">
-                                            <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                                <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
-                                                    <input type="radio" name="options" class="toggle" id="option1">Actions</label>
-                                                <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
-                                                    <input type="radio" name="options" class="toggle" id="option2">Settings</label>
+                                        <div class="actions">
+                                        
+
+                                        
+                                            <div class="input-group select2-bootstrap-prepend">
+                                                <span class="input-group-btn">
+                                                  
+                                                </span>
+                                    
+                                                <select id="sitedrop" class="form-control select2">
+                                                    <option value="4">Wilsonville</option>
+                                                    <option value="1">New Albany</option>
+                                                <option value="2" disabled="disabled">Costa Rica</option>
+                                                <option value="3" disabled="disabled">HZ</option>
+                                                
+                                                <option value="5" disabled="disabled">JB</option>
+                                                </select>
                                             </div>
-                                        </div> -->
+
+                                        
+                                        </div>
                                     </div>
                                     <div class="portlet-body">
                                         <table class="table table-striped table-bordered table-hover table-header-fixed" id="spoolTable">
@@ -262,6 +275,8 @@
         
             $(document).ready(function()
             {
+
+                   var site = $('#sitedrop').val();
                    getIgnitionData('Reporting/WV_Spools/spoolList');
                   
 

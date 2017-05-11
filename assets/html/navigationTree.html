@@ -50,17 +50,17 @@
                                         </a>
                                     </li>
                                     <li id="TNT_WV_spoolReport" class="nav-item  ">
-                                        <a id="TNT_WV_spoolReport_URL" href="ui_colors.html" class="nav-link ">
+                                        <a id="TNT_WV_spoolReport_URL" href="" class="nav-link ">
                                             <span class="title">Extruder Dielectric Report</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href="ui_general.html" class="nav-link ">
+                                    <li id="TNT_WV_spoolSummary" class="nav-item  ">
+                                        <a id="TNT_WV_spoolSummary_URL" href="" class="nav-link ">
                                             <span class="title">Spool Summary Report</span>
                                         </a>
                                     </li>
-                                    <li id="TNT_WV_spoolSummary_URL" class="nav-item  ">
-                                        <a id="TNT_WV_spoolSummary_URL" href="" class="nav-link ">
+                                    <li  class="nav-item  ">
+                                        <a  href="" class="nav-link ">
                                             <span class="title">Shop Order Summary Report</span>
                                         </a>
                                     </li>
@@ -102,13 +102,13 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item  ">
-                                        <a href="#" class="nav-link">
+                                    <li id="REC_lookup" class="nav-item  ">
+                                        <a id="REC_lookup_URL" href="" class="nav-link">
                                             <i class="icon-magnifier"></i> Part Number Lookup</a>
                                         </a>
                                     </li>
                                      <li  id="REC_RecipeReport" class="nav-item  ">
-                                        <a  id="REC_Report_URL" href="#" class="nav-link">
+                                        <a  id="REC_Report_URL" href="" class="nav-link">
                                             <i class="fa fa-file-o"></i> Recipe Report</a>
                                         </a>
                                     </li>
@@ -141,14 +141,18 @@
         //if we are not within a folder, these are the URLs
          $("#HomeDashboard_URL").attr("href", "index.html");
          $("#REC_Report_URL").attr("href", "RecMgmt/RecipeReport.html");
-         $("#TNT_WV_spoolReport_URL").attr("href", "TNT/WV_SpoolReport.html");
+         $("#REC_lookup_URL").attr("href", "RecMgmt/lookup.html");
+         
          
          var folder = 'TNT/';
             $("#TNT_WV_lookup_URL").attr("href", folder + "WV_Lookup.html");
+            $("#TNT_WV_spoolReport_URL").attr("href", folder + "WV_SpoolReport.html");
+            $("#TNT_WV_spoolSummary_URL").attr("href", folder + "WV_SpoolSummary_Lookup.html");
 
 
         var folder = 'RecMgmt/';
             $("#REC_Report_URL").attr("href", folder + "RecipeReport.html");
+            $("#REC_lookup_URL").attr("href", folder + "lookup.html");
             
         
         
@@ -158,9 +162,11 @@
             $("#HomeDashboard_URL").attr("href", "../index.html");
             
             $("#REC_Report_URL").attr("href", "RecipeReport.html");
+            $("#REC_lookup_URL").attr("href", "lookup.html");
             
             $("#TNT_WV_lookup_URL").attr("href", "../TNT/WV_Lookup.html");
             $("#TNT_WV_spoolReport_URL").attr("href", "../TNT/WV_SpoolReport.html");
+            $("#TNT_WV_spoolSummary_URL").attr("href", "../TNT/WV_SpoolSummary_Lookup.html");
             
     
         }
@@ -169,9 +175,11 @@
             $("#HomeDashboard_URL").attr("href", "../index.html");
             
             $("#REC_Report_URL").attr("href", "../RecMgmt/RecipeReport.html");
+            $("#REC_lookup_URL").attr("href", "../RecMgmt/lookup.html");
             
             $("#TNT_WV_lookup_URL").attr("href", "WV_Lookup.html");
             $("#TNT_WV_spoolReport_URL").attr("href", "WV_SpoolReport.html");
+            $("#TNT_WV_spoolSummary_URL").attr("href", "WV_SpoolSummary_Lookup.html");
 
             
 
