@@ -142,19 +142,16 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        <table class="table table-striped table-bordered table-hover table-header-fixed" id="spoolTable">
+                                        <table class="table table-striped table-bordered table-hover table-header-fixed" id="PNTable">
                                             <thead>
                                                 <tr align="center" class="">
                                                 <th ></th>
-                                                <th>Spool ID</th>
-                                                <th >Machine</th>
-                                                <th >Shop Order</th>
-                                                <th >Quantity</th>
-                                                <th >Operator</th>
-                                                <th >Status</th>
-                                                <th >Comments</th>
-                                                <th >Created</th>
+                                                <th>Part Number</th>
+                                                <th >Rev</th>
                                                 <th >Last Updated</th>
+                                                <th >Updated By</th>
+                                                <th >Rev Notes</th>
+                                                
 
                                                 </tr>
                                             </thead>
@@ -277,10 +274,15 @@
             {
 
                    var site = $('#sitedrop').val();
-                   getIgnitionData('Reporting/WV_Spools/spoolList');
+                   getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site);
                   
 
-                    //Get Ignition Data
+                    
+      
+                
+            });
+            
+            //Get Ignition Data
                     function getIgnitionData(funcName)
                     {
                         $.ajax({
@@ -319,19 +321,11 @@
                          console.log(data);
                          
                          //{"ProcessName":"Dielectric","RecipeFieldName":"Throat_LCL","CategoryName":"Process","RecipeFieldValue":""},
-
+                        //$("#PNTable tr").remove();
                         for (var key in data) {
-                            if (data[key].Status == 'GOOD') {
-                               $('#spoolTable').append('<tr align="center" class=statusGood value=' + data[key].Material_ID + '><td><a href="WV_SpoolReport.html?spool=' + data[key].Material_ID + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Report</button></a></td><td>' + data[key].Material_ID + '</td><td>' + data[key].MachineName + '</td><td>' + data[key].ShopOrder + '</td><td>' + data[key].Quantity + '</td><td>' + data[key].Operator + '</td><td><i class="fa fa-check-circle font-green"></i></div></td><td>' + data[key].Comments + '</td><td>' + data[key].Created + '</td><td>' + data[key].LastUpdated + '</td></tr>')
-                               }
-                           else if(data[key].Status == 'QP SCRAP') {
-                                 $('#spoolTable').append('<tr align="center" class=statusBad value=' + data[key].Material_ID + '><td><a href="WV_SpoolReport.html?spool=' + data[key].Material_ID + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Report</button></a></td><td>' + data[key].Material_ID + '</td><td>' + data[key].MachineName + '</td><td>' + data[key].ShopOrder + '</td><td>' + data[key].Quantity + '</td><td>' + data[key].Operator + '</td><td><span class="label label-sm label-danger"> ' + data[key].Status + ' </span></td><td>' + data[key].Comments + '</td><td>' + data[key].Created + '</td><td>' + data[key].LastUpdated + '</td></tr>')
 
-                              }
-                             else{
-                                $('#spoolTable').append('<tr align="center" class=statusOther value=' + data[key].Material_ID + '><td><a href="WV_SpoolReport.html?spool=' + data[key].Material_ID + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Report</button></a></td><td>' + data[key].Material_ID + '</td><td>' + data[key].MachineName + '</td><td>' + data[key].ShopOrder + '</td><td>' + data[key].Quantity + '</td><td>' + data[key].Operator + '</td><td><span class="label label-sm label-warning"> ' + data[key].Status + ' </span></td><td>' + data[key].Comments + '</td><td>' + data[key].Created + '</td><td>' + data[key].LastUpdated + '</td></tr>')
-
-                             }
+                            $('#PNTable').append('<tr align="center" value=' + data[key].id + '><td><a href="RecipeReport.html?ID=' + data[key].id + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Recipe</button></a></td><td>' + data[key].PartNum + '</td><td>' + data[key].Rev + '</td><td>' + data[key].RevDate + '</td><td>' + data[key].LastUpdatedBy + '</td><td>' + data[key].RevNotes + '</td></tr>')
+                         
                        }
                        initTable();
                        
@@ -340,12 +334,15 @@
                         
 
                     }
-      
-                
+            
+             $("#sitedrop").change(function () {
+                var site = $('#sitedrop').val();
+                getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site);
             });
             
            var initTable = function () {
-            var table = $('#spoolTable');
+
+            var table = $('#PNTable');
 
             var fixedHeaderOffset = 0;
             if (App.getViewPort().width < App.getResponsiveBreakpoint('md')) {
