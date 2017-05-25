@@ -87,7 +87,7 @@
                         <div class="page-bar">
                             
                             <div class="page-toolbar">
-                                <button type="button" class="btn btn-sm dark" onclick="printDiv();"><i class="icon-printer"> </i> Print Report</button>
+                                <button type="button" class="btn btn-sm dark" onclick="printDiv();"><i class="fa fa-file-pdf-o"> </i> View Report PDF</button>
 
                                
                             </div>
@@ -111,31 +111,31 @@
                                         <div class="row">
                                             <div class="col-lg-2 col-md-4 col-xs-12">
                                                 <div class="mt-element-ribbon bg-grey-steel">
-                                                    <div class="ribbon ribbon-color-default uppercase">Site</div>
+                                                    <div class="ribbon ribbon-color-warning uppercase">Site</div>
                                                     <p class="ribbon-content bold" id="siteContentRbn"></p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-xs-12">
                                                 <div class="mt-element-ribbon bg-grey-steel">
-                                                    <div class="ribbon ribbon-color-primary uppercase">Part Number</div>
+                                                    <div class="ribbon ribbon-color-warning uppercase">Part Number</div>
                                                     <p class="ribbon-content bold" id="partNumContentRbn"></p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-xs-12">
                                                 <div class="mt-element-ribbon bg-grey-steel">
-                                                    <div class="ribbon ribbon-color-info uppercase">Revision</div>
+                                                    <div class="ribbon ribbon-color-warning uppercase">Revision</div>
                                                     <p class="ribbon-content bold" id="revContentRbn"></p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-xs-12">
                                                 <div class="mt-element-ribbon bg-grey-steel">
-                                                    <div class="ribbon ribbon-color-success uppercase">Revision Date</div>
+                                                    <div class="ribbon ribbon-color-warning uppercase">Revision Date</div>
                                                     <p class="ribbon-content bold" id="revDateContentRbn"></p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 col-md-4 col-xs-12">
                                                 <div class="mt-element-ribbon bg-grey-steel">
-                                                    <div class="ribbon ribbon-color-danger uppercase ">Last Updated By</div>
+                                                    <div class="ribbon ribbon-color-warning uppercase ">Last Updated By</div>
                                                     <p class="ribbon-content bold" id="lastUpdatedByContentRbn"></p>
                                                 </div>
                                             </div>
@@ -156,7 +156,7 @@
                                 <div class="portlet light portlet-fit bordered">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="icon-layers font-dark bold uppercase"></i>
+                                            <i class="fa fa-info-circle font-dark bold uppercase"></i>
                                             <span class="caption-subject font-dark bold uppercase">Recipe Details</span>
                                         </div>
                                     </div>
@@ -223,6 +223,7 @@
             </table>
        
        </div>
+       <iframe id="my_iframe" style="display:none;"></iframe>
        
         <!-- END QUICK NAV -->
         <!--[if lt IE 9]>
@@ -287,6 +288,8 @@
         <script src="../assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         
+        
+        script src="../assets/js/jquery.fileDownload.js"></script> 
         <script src="../assets/js/PRISMReporting.js"></script> 
         <script> 
         
@@ -320,7 +323,7 @@
                          $('#siteContentRbn').append(data[key].site);
                         $('#partNumContentRbn').append(data[key].PartNum);
                         $('#revContentRbn').append(data[key].Rev);
-                        $('#revDateContentRbn').append(data[key].RevDate);
+                        $('#revDateContentRbn').append(getFormattedDate(data[key].RevDate));
                         $('#lastUpdatedByContentRbn').append(data[key].LastUpdatedBy);
                         $('#revNotesContentRbn').append(data[key].RevNotes);
                         
@@ -521,21 +524,27 @@
     
     
         function printDiv() 
-        {
-
-          var divToPrint=document.getElementById('printDiv');
-
-          var newWin=window.open('','Print-Window');
-
-          newWin.document.open();
-
-          newWin.document.write('<html><body onload="window.print()"><center>'+divToPrint.innerHTML+'</body></html>');
-
-          newWin.document.close();
-
-          setTimeout(function(){newWin.close();},10);
+        {           
+                var url = IgnitionURL + 'Reporting/RecMgmt/getReport?ID=' + ID;
+                window.open(IgnitionURL + 'Reporting/RecMgmt/getReport?ID=' + ID, 'Recipe Report');
+               // document.getElementById('my_iframe').src = url;
+               
+                // e.preventDefault();  //stop the browser from following
+                //window.location.href = URL;
 
         }
+        
+        function getFormattedDate(date2) {
+            var date = new Date(date2)
+          var year = date.getFullYear();
+          var month = (1 + date.getMonth()).toString();
+          month = month.length > 1 ? month : '0' + month;
+          var day = date.getDate().toString();
+          day = day.length > 1 ? day : '0' + day;
+          return month + '/' + day + '/' + year;
+        }
+        
+       
         </script>
     </body>
 

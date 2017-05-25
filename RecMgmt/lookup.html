@@ -120,27 +120,38 @@
                                             <span class="caption-subject bold uppercase">Part Number Lookup</span>
                                         </div>
                                         <div class="actions">
+                                            
                                         
-
                                         
-                                            <div class="input-group select2-bootstrap-prepend">
-                                                <span class="input-group-btn">
-                                                  
-                                                </span>
-                                    
-                                                <select id="sitedrop" class="form-control select2">
-                                                    <option value="4">Wilsonville</option>
-                                                    <option value="1">New Albany</option>
-                                                <option value="2" disabled="disabled">Costa Rica</option>
-                                                <option value="3" disabled="disabled">HZ</option>
-                                                
-                                                <option value="5" disabled="disabled">JB</option>
-                                                </select>
-                                            </div>
+                                            
 
                                         
                                         </div>
                                     </div>
+                                    <div class="row">
+                                         <div class="col-md-4">
+                                         </div>
+                                        <div class="col-md-2">
+                                            <div class="input-group select2-bootstrap-prepend">
+                                            
+                                                    <span class="input-group-btn">
+                                                      
+                                                    </span>
+                                        
+                                                    <select id="sitedrop" class="form-control select2">
+                                                        <option value="4">Wilsonville</option>
+                                                        <option value="1">New Albany</option>
+                                                    <option value="2" disabled="disabled">Costa Rica</option>
+                                                    <option value="3" disabled="disabled">HZ</option>
+                                                    
+                                                    <option value="5" disabled="disabled">JB</option>
+                                                    </select>
+                                                </div>
+                                             </div>
+                                             <div class="col-md-6">
+                                                Filter Revisions: <input type="checkbox" class="make-switch" id="latestRev" data-on-text="Most Recent" data-off-text="All Revs" checked>
+                                                </div>
+                                   </div>
                                     <div class="portlet-body">
                                         <table class="table table-striped table-bordered table-hover table-header-fixed" id="PNTable">
                                             <thead>
@@ -274,13 +285,12 @@
             {
 
                    var site = $('#sitedrop').val();
-                   getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site);
-                  
+                   
+                   getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site + '&filter=true');  
 
-                    
-      
-                
             });
+            
+           
             
             //Get Ignition Data
                     function getIgnitionData(funcName)
@@ -322,12 +332,17 @@
                          
                          //{"ProcessName":"Dielectric","RecipeFieldName":"Throat_LCL","CategoryName":"Process","RecipeFieldValue":""},
                         //$("#PNTable tr").remove();
+                        // $("#PNTable tr").remove();
+                        $('#PNTable').DataTable().clear();
+                        $('#PNTable').DataTable().destroy();
+                       
                         for (var key in data) {
-
-                            $('#PNTable').append('<tr align="center" value=' + data[key].id + '><td><a href="RecipeReport.html?ID=' + data[key].id + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Recipe</button></a></td><td>' + data[key].PartNum + '</td><td>' + data[key].Rev + '</td><td>' + data[key].RevDate + '</td><td>' + data[key].LastUpdatedBy + '</td><td>' + data[key].RevNotes + '</td></tr>')
-                         
+                           // $('#PNTable').DataTable().destroy();
+                            $('#PNTable').append('<tr align="center" value=' + data[key].id + '><td><a href="RecipeReport.html?ID=' + data[key].id + '"><button type="button" class="btn btn-slategray btn-xs mb-5">View Recipe</button></a></td><td>' + data[key].PartNum + '</td><td>' + data[key].Rev + '</td><td>' + getFormattedDate(data[key].RevDate) + '</td><td>' + data[key].LastUpdatedBy + '</td><td>' + data[key].RevNotes + '</td></tr>')
+                            //$('#PNTable').DataTable().draw();
                        }
                        initTable();
+                       $('#PNTable').DataTable().draw();
                        
              
                         //$('#materialResults').trigger('footable_initialize');
@@ -337,8 +352,19 @@
             
              $("#sitedrop").change(function () {
                 var site = $('#sitedrop').val();
-                getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site);
+               //$("#PNTable tr").remove();
+                var latestRev = $('#latestRev').val();
+                getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site + '&filter=' + latestRev);               
             });
+
+            
+            $('#latestRev').on('switchChange.bootstrapSwitch', function (event, state) {
+                var site = $('#sitedrop').val();
+              // $("#PNTable tr").remove();
+               
+               getIgnitionData('Reporting/RecMgmt/PNLookup?site=' + site + '&filter=' + state);               
+            }); 
+            
             
            var initTable = function () {
 
@@ -360,7 +386,9 @@
             }
 
             var oTable = table.dataTable({
-
+                destroy: true,
+                //aaData: response.data,
+                retrieve: true,
                 
                 // setup rowreorder extension: http://datatables.net/extensions/fixedheader/
                 fixedHeader: {
@@ -369,7 +397,7 @@
                 },
 
                 "order": [
-                    [0, 'asc']
+                    [1, 'asc']
                 ],
                 
                 "lengthMenu": [
@@ -380,6 +408,16 @@
                 "pageLength": 25,
         
           });
+        }
+        
+         function getFormattedDate(date2) {
+            var date = new Date(date2)
+          var year = date.getFullYear();
+          var month = (1 + date.getMonth()).toString();
+          month = month.length > 1 ? month : '0' + month;
+          var day = date.getDate().toString();
+          day = day.length > 1 ? day : '0' + day;
+          return month + '/' + day + '/' + year;
         }
     
     
